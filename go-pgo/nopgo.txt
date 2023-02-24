@@ -1,0 +1,25 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/mehiX/mehi.dev/go-pgo/load
+BenchmarkLoad-10    	    9196	    127208 ns/op
+BenchmarkLoad-10    	    9411	    127208 ns/op
+BenchmarkLoad-10    	    9312	    129170 ns/op
+BenchmarkLoad-10    	    9307	    129932 ns/op
+BenchmarkLoad-10    	    9285	    128080 ns/op
+BenchmarkLoad-10    	    9360	    126653 ns/op
+BenchmarkLoad-10    	    9597	    125947 ns/op
+BenchmarkLoad-10    	    9434	    126704 ns/op
+BenchmarkLoad-10    	    9481	    127287 ns/op
+BenchmarkLoad-10    	    9573	    127693 ns/op
+BenchmarkLoad-10    	    9469	    126788 ns/op
+BenchmarkLoad-10    	    9520	    126827 ns/op
+BenchmarkLoad-10    	    9474	    126686 ns/op
+BenchmarkLoad-10    	    9613	    125716 ns/op
+BenchmarkLoad-10    	    9511	    125850 ns/op
+BenchmarkLoad-10    	    9495	    126982 ns/op
+BenchmarkLoad-10    	    9480	    127955 ns/op
+BenchmarkLoad-10    	    9456	    125990 ns/op
+BenchmarkLoad-10    	    9589	    126475 ns/op
+BenchmarkLoad-10    	    9577	    125849 ns/op
+PASS
+ok  	github.com/mehiX/mehi.dev/go-pgo/load	25.441s

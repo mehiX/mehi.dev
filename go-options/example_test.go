@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func Example() {
+func ExampleApp_Run() {
 
 	app := &App{Name: "test app"}
 

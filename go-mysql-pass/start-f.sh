@@ -5,7 +5,7 @@ docker run --rm --detach \
   --env MARIADB_USER=test \
   --env MARIADB_PASSWORD=test \
   --env MARIADB_ROOT_PASSWORD=test \
-  -v $(pwd)/db/founders:/docker-entrypoint-initdb.d \
+  -v $(pwd)/db/f:/docker-entrypoint-initdb.d \
   -v founders:/var/lib/mysql \
   -p "3306:3306" \
 mariadb:latest

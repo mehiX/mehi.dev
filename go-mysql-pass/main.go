@@ -202,7 +202,6 @@ func (a *application) LoadUsers() error {
 }
 
 func decryptPass(done context.Context, in <-chan userRec, out chan<- userRec, dict string) {
-	fmt.Println("start worker")
 
 	f, err := os.Open(dict)
 	if err != nil {
@@ -211,11 +210,13 @@ func decryptPass(done context.Context, in <-chan userRec, out chan<- userRec, di
 	}
 	defer f.Close()
 
+	fmt.Println("start worker")
 main:
 	for u := range in {
 		fmt.Printf("Checking %s[%s] - %s\n", u.Username, u.Email, u.Password)
 		found := make(chan struct{})
 		var wg sync.WaitGroup
+		limiter := make(chan struct{}, 100)
 		f.Seek(0, io.SeekStart)
 		sc := bufio.NewScanner(f)
 		for sc.Scan() {
@@ -230,7 +231,11 @@ main:
 				hash := strings.TrimPrefix(u.Password, "{bcrypt}")
 				wg.Add(1)
 				go func(u userRec, passwd string, hash string) {
-					defer wg.Done()
+					defer func() {
+						<-limiter
+						wg.Done()
+					}()
+					limiter <- struct{}{}
 					if err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(passwd)); err == nil {
 						u.ClearPasswd = passwd
 						select {
@@ -244,6 +249,7 @@ main:
 			}
 		}
 		wg.Wait()
+		close(limiter)
 		select {
 		case out <- u:
 		case <-done.Done():
